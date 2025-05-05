@@ -1,15 +1,11 @@
-from pydantic import BaseModel, Field
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import Field
+from pydantic_settings import SettingsConfigDict
 from pathlib import Path
-from typing import Self
+from typing import ClassVar, Self
+from pydantic_settings import BaseSettings
+
 
 env_file = Path(__file__).parent.parent.parent.parent.parent.parent / "default.env"
-
-
-from typing import ClassVar, Self
-#from warnings import deprecated
-
-from pydantic_settings import BaseSettings
 
 
 class InternalCachedBaseSettings(BaseSettings):
@@ -18,7 +14,7 @@ class InternalCachedBaseSettings(BaseSettings):
     _cached_instance: ClassVar[Self | None] = None
 
     @classmethod
-    def load(cls) -> Self:
+    def load(cls) -> BaseSettings:
         """Get settings from the usual places - env, secret files. Caches the result indefinitely."""
         # can't use cache decorator because of typing issues so we create our own cache
         if cls._cached_instance is None:
@@ -31,7 +27,7 @@ class SpotifyConfig(InternalCachedBaseSettings):
         env_file=env_file,
         env_file_encoding="utf-8",
         env_nested_delimiter="__",
-        extra="ignore"
+        extra="ignore",
     )
     client_id: str = Field(..., validation_alias="SPOTIFY_CLIENT_ID")
     client_secret: str = Field(..., validation_alias="SPOTIFY_CLIENT_SECRET")

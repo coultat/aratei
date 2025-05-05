@@ -1,6 +1,6 @@
-import pytest
 from src.aratei.api.spotify.models.requests import SpotifyRequests
 from src.aratei.api.spotify.models.artists import Artist
+
 
 def test_spotify_client(mock_spotify_client_dict):
     # Given the mock data

@@ -3,7 +3,11 @@ import base64
 
 from src.aratei.api.spotify.models.config import SpotifyConfig
 from src.aratei.api.spotify.models.artists import Artist
-from src.aratei.api.spotify.models.requests import SpotifyRequests, HeadersData, SpotifyEndpoint
+from src.aratei.api.spotify.models.requests import (
+    SpotifyRequests,
+    HeadersData,
+    SpotifyEndpoint,
+)
 
 
 class SpotifyClient:
@@ -12,16 +16,13 @@ class SpotifyClient:
 
     async def get_token(self) -> SpotifyRequests:
         credentials = self._spotify_config.credentials
-        credentials_b64 = base64.b64encode(credentials.encode('utf-8')).decode('utf-8')
+        credentials_b64 = base64.b64encode(credentials.encode("utf-8")).decode("utf-8")
         try:
-            response = httpx.post(self._spotify_config.auth_url,
-                            headers={
-                                'Authorization': f'Basic {credentials_b64}'
-                            },
-                            data = {
-                                'grant_type': HeadersData.CLIENT_CREDENTIALS
-                            },
-                                  timeout=self._spotify_config.timeout
+            response = httpx.post(
+                self._spotify_config.auth_url,
+                headers={"Authorization": f"Basic {credentials_b64}"},
+                data={"grant_type": HeadersData.CLIENT_CREDENTIALS},
+                timeout=self._spotify_config.timeout,
             )
             response.raise_for_status()
             token_data = SpotifyRequests.model_validate(response.json())
@@ -34,8 +35,10 @@ class SpotifyClient:
     async def get_artist(self, artist_id: str) -> Artist:
         try:
             token = await self.get_token()
-            artist = httpx.get(self._spotify_config.base_url + SpotifyEndpoint.ARTIST + artist_id,
-                               headers={'Authorization': f'{token.token_type} {token.access_token}'})
+            artist = httpx.get(
+                self._spotify_config.base_url + SpotifyEndpoint.ARTIST + artist_id,
+                headers={"Authorization": f"{token.token_type} {token.access_token}"},
+            )
             artist.raise_for_status()
             return Artist.model_validate(artist.json())
 
@@ -43,8 +46,3 @@ class SpotifyClient:
             raise Exception(f"Artist not found {err=}")
         except httpx.TimeoutException as err:
             raise Exception(f"Connection Timed out: {err=}")
-
-
-
-
-

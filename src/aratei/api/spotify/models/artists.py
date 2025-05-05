@@ -1,14 +1,18 @@
 from pydantic import BaseModel, Field, HttpUrl, RootModel, ConfigDict
 
+
 class ExternalURLs(BaseModel):
     spotify: HttpUrl = Field(alias="spotify", description="Spotify URL")
+
 
 class Followers(BaseModel):
     href: HttpUrl | None = Field(alias="href", description="Followers HREF")
     total: int = Field(alias="total", description="Total number of followers")
 
+
 class Genres(RootModel):
     root: list[str]
+
 
 class ArtistImage(BaseModel):
     height: int = Field(alias="height", description="Image height")
@@ -17,8 +21,9 @@ class ArtistImage(BaseModel):
 
 
 class Artist(BaseModel):
-    model_config = ConfigDict(model_validate=True, validate_by_alias=True)
-    external_urls: ExternalURLs = Field(alias="external_urls", description="External URLs")
+    external_urls: ExternalURLs = Field(
+        alias="external_urls", description="External URLs"
+    )
     followers: Followers
     genres: Genres | None = Field(default=None, alias="genres", description="Genres")
     href: HttpUrl = Field(alias="href", description="Artist URL")
