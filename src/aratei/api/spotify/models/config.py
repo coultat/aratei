@@ -7,9 +7,6 @@ from src.aratei.api.api_models.base_settings import InternalCachedBaseSettings
 env_file = Path(__file__).parent.parent.parent.parent.parent.parent / "default.env"
 
 
-
-
-
 class SpotifyConfig(InternalCachedBaseSettings):
     model_config = SettingsConfigDict(
         env_file=env_file,

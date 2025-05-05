@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, HttpUrl, RootModel, ConfigDict
+from pydantic import BaseModel, Field, HttpUrl, RootModel
 
 
 class ExternalURLs(BaseModel):

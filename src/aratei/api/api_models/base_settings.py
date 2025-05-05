@@ -2,6 +2,7 @@ from typing import ClassVar, Self
 
 from pydantic_settings import BaseSettings
 
+
 class InternalCachedBaseSettings(BaseSettings):
     """Base class for settings with caching without vault access. Exists to prevent circular imports."""
 

@@ -1,9 +1,5 @@
-from typing import Annotated
-from fastapi import FastAPI, Depends
-
-from src.aratei.api.spotify.client import SpotifyClient
-from src.aratei.api.spotify.models.config import spotify_config, SpotifyConfig
 from src.aratei.api.spotify.routers import spotify_router
+from fastapi import FastAPI
 
 fastapi_app = FastAPI()
 

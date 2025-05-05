@@ -20,9 +20,5 @@ def create_fastapi_app(app_config: AppConfig.load(), version: str) -> FastAPI:
     )
     app.exception_handler(RequestValidationError)(request_validation_exception_handler)
 
-    app.get("/")(
-        lambda: Response(
-            "/docs"
-        )
-    )
+    app.get("/")(lambda: Response("/docs"))
     return app
