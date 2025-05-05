@@ -1,25 +1,13 @@
 from pydantic import Field
 from pydantic_settings import SettingsConfigDict
 from pathlib import Path
-from typing import ClassVar, Self
-from pydantic_settings import BaseSettings
+from src.aratei.api.api_models.base_settings import InternalCachedBaseSettings
 
 
 env_file = Path(__file__).parent.parent.parent.parent.parent.parent / "default.env"
 
 
-class InternalCachedBaseSettings(BaseSettings):
-    """Base class for settings with caching without vault access. Exists to prevent circular imports."""
 
-    _cached_instance: ClassVar[Self | None] = None
-
-    @classmethod
-    def load(cls) -> BaseSettings:
-        """Get settings from the usual places - env, secret files. Caches the result indefinitely."""
-        # can't use cache decorator because of typing issues so we create our own cache
-        if cls._cached_instance is None:
-            cls._cached_instance = cls()
-        return cls._cached_instance
 
 
 class SpotifyConfig(InternalCachedBaseSettings):
