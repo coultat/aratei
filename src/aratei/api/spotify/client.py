@@ -8,9 +8,10 @@ from src.aratei.api.spotify.models.requests import (
     HeadersData,
     SpotifyEndpoint,
 )
+from src.aratei.interfaces.abstract_clients import MusicAPIClient
 
 
-class SpotifyClient:
+class SpotifyClient(MusicAPIClient):
     def __init__(self, spotify_config: SpotifyConfig):
         self._spotify_config = spotify_config
 
