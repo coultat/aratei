@@ -14,7 +14,7 @@ class AppConfig(InternalCachedBaseSettings):
         env_file=env_file,
         env_file_encoding="utf-8",
         env_nested_delimiter="__",
-        extra="ignore",
+        extra="allow",
     )
     name: str = Field(..., validation_alias="APP_NAME")
     version: str = Field(..., validation_alias="APP_VERSION")
