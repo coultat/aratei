@@ -35,12 +35,12 @@ class SpotifyClient:
     async def get_artist(self, artist_id: str) -> Artist:
         try:
             token = await self.get_token()
-            artist = httpx.get(
+            response = httpx.get(
                 self._spotify_config.base_url + SpotifyEndpoint.ARTIST + artist_id,
                 headers={"Authorization": f"{token.token_type} {token.access_token}"},
             )
-            artist.raise_for_status()
-            return Artist.model_validate(artist.json())
+            response.raise_for_status()
+            return Artist.model_validate(response.json())
 
         except httpx.HTTPStatusError as err:
             raise Exception(f"Artist not found {err=}")

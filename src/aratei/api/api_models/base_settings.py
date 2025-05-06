@@ -4,7 +4,6 @@ from pydantic_settings import BaseSettings
 
 
 class InternalCachedBaseSettings(BaseSettings):
-
     _cached_instance: ClassVar[Self | None] = None
 
     @classmethod

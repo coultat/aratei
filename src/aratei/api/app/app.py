@@ -7,6 +7,6 @@ fastapi_app = create_fastapi_app(app_config=AppConfig.load(), version="0.1.0")
 fastapi_app.include_router(spotify_router)
 
 
-@fastapi_app.get("/")
+@fastapi_app.get("/hello_world")
 async def hello_world():
     return {"message": "Hello World"}
