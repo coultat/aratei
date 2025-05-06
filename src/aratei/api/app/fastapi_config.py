@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from fastapi.exception_handlers import request_validation_exception_handler
 from src.aratei.api.api_models.fastapi_model import AppConfig
-from starlette.responses import Response
+from fastapi.responses import RedirectResponse
 
 
 def create_fastapi_app(app_config: AppConfig, version: str) -> FastAPI:
@@ -16,9 +16,10 @@ def create_fastapi_app(app_config: AppConfig, version: str) -> FastAPI:
     app = FastAPI(
         title=app_config.name,
         version=version,
-        description=f"API for {app_config.name} - API version: 1 - app version: {version}",
+        description=f"API for {app_config.name} - API version: 1 - app version: {version}. {app_config.description}",
     )
     app.exception_handler(RequestValidationError)(request_validation_exception_handler)
 
-    app.get("/")(lambda: Response("/docs"))
+    app.get("/")(lambda: RedirectResponse("/docs"))
+
     return app

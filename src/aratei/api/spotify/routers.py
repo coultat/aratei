@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends, Query
+
 from src.aratei.api.spotify.client import SpotifyClient
 from src.aratei.api.spotify.models.artists import Artist
-from src.aratei.api.spotify.models.config import spotify_config
+from src.aratei.api.spotify.models.config import spotify_config, SpotifyConfig
 
 
 spotify_router = APIRouter(prefix="/spotify", tags=["spotify"])
@@ -11,7 +12,8 @@ def get_spotify_client() -> SpotifyClient:
     """
     Dependency to get the Spotify client.
     """
-    return SpotifyClient(spotify_config)
+    config: SpotifyConfig = spotify_config.load()
+    return SpotifyClient(config)
 
 
 @spotify_router.get("/artist", response_model=Artist)

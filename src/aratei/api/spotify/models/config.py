@@ -1,10 +1,7 @@
 from pydantic import Field
 from pydantic_settings import SettingsConfigDict
-from pathlib import Path
+from src.aratei.config.settings import env_file
 from src.aratei.api.api_models.base_settings import InternalCachedBaseSettings
-
-
-env_file = Path(__file__).parent.parent.parent.parent.parent.parent / "default.env"
 
 
 class SpotifyConfig(InternalCachedBaseSettings):
