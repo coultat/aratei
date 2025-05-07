@@ -13,9 +13,8 @@ def test_hello_world():
 @pytest.mark.asyncio
 @patch("httpx.post")
 @patch("httpx.get")
-def test_get_artist(mock_get_artist, mock_get_token, mock_token, mock_artist):
+def test_get_artist(mock_get_artist, mock_artist): #, mock_token, mock_artist):
     # Given the mock token and artist data
-    mock_get_token.return_value = mock_token
     mock_get_artist.return_value = mock_artist
     expected_artist_name = "Audioslave"
 
