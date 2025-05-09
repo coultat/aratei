@@ -6,7 +6,7 @@ class ExternalURLs(BaseModel):
 
 
 class Followers(BaseModel):
-    href: HttpUrl | None = Field(alias="href", description="Followers HREF")
+    href: str | None = Field(alias="href", description="Followers HREF")
     total: int = Field(alias="total", description="Total number of followers")
 
 
@@ -26,7 +26,7 @@ class Artist(BaseModel):
     )
     followers: Followers
     genres: Genres | None = Field(default=None, alias="genres", description="Genres")
-    href: HttpUrl = Field(alias="href", description="Artist URL")
+    href: str = Field(alias="href", description="Artist URL")
     artist_id: str = Field(alias="id", description="Artist ID")
     images: list[ArtistImage]
     name: str = Field(alias="name", description="Artist name")
