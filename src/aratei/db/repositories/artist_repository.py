@@ -18,7 +18,7 @@ def add_artist(artist: ArtistDB, db: Session) -> None:
         _add_artist(artist, db)
 
 
-def get_artist(artist_id: Column[str], db: Session):
+def get_artist(artist_id: str, db: Session):
     result = db.query(ArtistDB).filter(ArtistDB.artist_id == artist_id).first()
     return result
 
