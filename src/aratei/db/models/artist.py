@@ -14,7 +14,7 @@ class ArtistDB(Base):
     uri = Column("uri", String)
     href = Column("href", String)
 
-    followers = relationship("FollowersDB", uselist=False ,back_populates="artist")
+    followers = relationship("FollowersDB", uselist=False, back_populates="artist")
     images = relationship("ImagesDB", back_populates="artist")
 
     def __init__(self, name, artist_id, popularity, type, uri, href, images, followers):

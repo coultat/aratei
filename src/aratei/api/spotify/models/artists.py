@@ -28,7 +28,7 @@ class Artist(BaseModel):
     genres: Genres | None = Field(default=None, alias="genres", description="Genres")
     href: str = Field(alias="href", description="Artist URL")
     artist_id: str = Field(alias="id", description="Artist ID")
-    images: list[ArtistImage]
+    images: list[ArtistImage] | None
     name: str = Field(alias="name", description="Artist name")
     popularity: int = Field(alias="popularity", description="Artist popularity")
     type: str = Field(alias="type", description="Type of artist")

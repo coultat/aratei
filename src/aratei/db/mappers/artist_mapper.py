@@ -8,8 +8,11 @@ def _map_images(artist: Artist) -> list[ImagesDB]:
     """
     images: list[ImagesDB] = []
     for image in artist.images:
-        images.append(ImagesDB(width=image.width, height=image.height, url=str(image.url)))
+        images.append(
+            ImagesDB(width=image.width, height=image.height, url=str(image.url))
+        )
     return images
+
 
 def _map_followers(artist: Artist) -> FollowersDB:
     """
@@ -17,17 +20,18 @@ def _map_followers(artist: Artist) -> FollowersDB:
     """
     return FollowersDB(href=artist.followers.href, total=artist.followers.total)
 
+
 def mapp_artist_db(artist: Artist) -> ArtistDB:
     images = _map_images(artist)
     followers = _map_followers(artist)
 
     return ArtistDB(
-    name=artist.name,
-    artist_id=artist.artist_id,
-    popularity=artist.popularity,
-    type=artist.type,
-    uri=artist.uri,
-    href=artist.href,
-    images=images,
-    followers=followers,
-)
+        name=artist.name,
+        artist_id=artist.artist_id,
+        popularity=artist.popularity,
+        type=artist.type,
+        uri=artist.uri,
+        href=artist.href,
+        images=images,
+        followers=followers,
+    )
